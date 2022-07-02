@@ -12,10 +12,17 @@ baseDir = Path('/Library/Audio/Plug-Ins')
 #for f in [i for i in baseDir.iterdir() if i.is_file()] :
 #    print(f)
 
-for d in [i for i in baseDir.rglob('*.vst') if i.is_dir()]:
+for d in [i for i in baseDir.rglob('*')]:
     xa = xattr.xattr(d)
-    if QUARANTINE_KEY in xa.keys():
-        del xa[QUARANTINE_KEY]
+    try:
+        if QUARANTINE_KEY in xa.keys():
+            try:
+                del xa[QUARANTINE_KEY]
+            except:
+                print('uh oh')
+            print(d)
+    except:
+        print('spagetti-oh')
         print(d)
 
 
