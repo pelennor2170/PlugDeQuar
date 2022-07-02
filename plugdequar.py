@@ -53,18 +53,4 @@ qfl = getQuarFlaggedPluginList()
 
 print(deFlagPluginList(qfl))
 
-#for f in [i for i in baseDir.iterdir() if i.is_file()] :
-#    print(f)
 
-# for d in [i for i in baseDir.rglob('*')]:
-#     xa = xattr.xattr(d)
-#     try:
-#         if QUARANTINE_KEY in xa.keys():
-#             try:
-#                 del xa[QUARANTINE_KEY]
-#             except:
-#                 print('uh oh')
-#             print(d)
-#     except:
-#         print('spagetti-oh')
-#         print(d)
