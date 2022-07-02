@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from pathlib import Path
 import xattr
+import subprocess
 
 QUARANTINE_KEY = 'com.apple.quarantine'
 
@@ -32,16 +33,20 @@ def getQuarFlaggedPluginList():
 
 
 def deflagOnePlugin(plugPath):
-    # this needs to call xattr -rd on the path
+    # seems to not need sudo?  not sure why?
 
-    return 0 # success
+    deflagCmd = ['/usr/bin/xattr', '-rd', QUARANTINE_KEY, str(plugPath)]
+
+    pout2 = subprocess.run(deflagCmd, capture_output=True)
+ 
+    return pout2.returncode 
 
 
 def deFlagPluginList(plugsToDeflag):
     resultList = []
     for plug in plugsToDeflag:
         thisResult = deflagOnePlugin(plug)
-        resultList.append(thisResult)
+        resultList.append([plugsToDeflag, thisResult])
     return resultList
 
 qfl = getQuarFlaggedPluginList()
