@@ -13,18 +13,6 @@ from kivy.uix.recycleview import RecycleView
 from kivy.lang import Builder
 
 
-Builder.load_string('''
-<RV>:
-    viewclass: 'Label'
-    RecycleBoxLayout:
-        default_size: None, dp(40)
-        default_size_hint: 1, None
-        size_hint_y: None
-        height: self.minimum_height
-        orientation: 'vertical'
-''')
-
-
 QUARANTINE_KEY = 'com.apple.quarantine'
 
 PLUGIN_GLOB_LIST = ['*.vst', '*.vst3', '*.component']
@@ -71,38 +59,24 @@ def deFlagPluginList(plugsToDeflag):
         resultList.append([plugsToDeflag, thisResult])
     return resultList
 
-#qfl = getQuarFlaggedPluginList()
-
-#print(deFlagPluginList(qfl))
 
 class RV(RecycleView):
     def __init__(self, **kwargs):
         super(RV, self).__init__(**kwargs)
-        flaggedPlugs = getQuarFlaggedPluginList()
-        self.data = [{'text' : str(item) } for item in flaggedPlugs]
-        print(self.data)
-
-
+        self.data = [{'text': str(x)} for x in getQuarFlaggedPluginList()]
 
 class PlugDeQuar(App):
     def build(self):
-        f=FloatLayout()
-        # s=Scatter()
-        # l=Label(text='Hello', font_size=150)
-        r = RV(size_hint = (1,0.9),pos_hint = {"x":0, "y":0})
+ 
+        f = FloatLayout()
+        r = RV()
+        r.size_hint = (1,0.9)
+        print(dir(r))
         f.add_widget(r)
-        b = Button(text = 'Dequarantine all...', pos_hint = {"x":0.5, "top":1}, size_hint = (0.5, 0.1))
-        f.add_widget(b)
-        # s.add_widget(l)
-        #popup = Popup(title='Please wait...',
-        #content=Label(text='Scanning plugin folders'),
-        #size_hint=(None, None), size=(400, 400))
         return f
     
 
 if __name__ == "__main__":
 
-    #flaggedPlugins = getQuarFlaggedPluginList()
-    #print(flaggedPlugins)
     PlugDeQuar().run()
 
