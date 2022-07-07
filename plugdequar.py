@@ -63,17 +63,39 @@ def deFlagPluginList(plugsToDeflag):
 class RV(RecycleView):
     def __init__(self, **kwargs):
         super(RV, self).__init__(**kwargs)
-        self.data = [{'text': str(x)} for x in getQuarFlaggedPluginList()]
+
+    def update(self, newFlaggedList):
+        self.data = []
+        self.data = [{'text': str(x)} for x in newFlaggedList]
 
 class PlugDeQuar(App):
+    def __init__(self, **kwargs):
+        super(PlugDeQuar, self).__init__(**kwargs)
+        self.quarPlugList = getQuarFlaggedPluginList()
+
     def build(self):
  
         f = FloatLayout()
         r = RV()
         r.size_hint = (1,0.9)
-        print(dir(r))
+        r.update(self.quarPlugList)
         f.add_widget(r)
+
+        btn = Button(text = 'De-quarantine all...', 
+                            size_hint = (0.2, 0.1), 
+                            pos_hint = {'center_x' : 0.5 ,'y': 0.9} )
+
+        btn.bind(on_press=self.dequarPressed)
+        f.add_widget(btn)
+
+        self.RV = r
         return f
+
+    def dequarPressed(self, someArg):
+        resultList = deFlagPluginList(self.quarPlugList)
+        print(resultList)
+        self.quarPlugList = getQuarFlaggedPluginList()
+        self.RV.update(self.quarPlugList)
     
 
 if __name__ == "__main__":
