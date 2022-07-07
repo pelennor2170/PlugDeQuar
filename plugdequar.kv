@@ -2,7 +2,7 @@
     viewclass: 'Label'
 
     RecycleBoxLayout:
-        default_size: None, dp(40)
+        default_size: None, dp(30)
         default_size_hint: 1, None
         size_hint_y: None
         height: self.minimum_height
@@ -15,7 +15,21 @@
             pos: self.pos
             size: self.size
 
-    Button:
-        text: 'Dequarantine all...'
+    RoundedButton:
+        text: 'De-quarantine all...'
         size_hint: 0.2, 0.1
-        pos_hint: {'x': 0.4 ,'y': 0.9}
+        pos_hint: {'center_x' : 0.5 ,'y': 0.9}
+
+
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color: 
+            rgba: (48/255, 84/255, 150/255, 1)
+
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [30]
