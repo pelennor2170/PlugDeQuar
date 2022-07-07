@@ -83,7 +83,10 @@ class PlugDeQuar(App):
 
         btn = Button(text = 'De-quarantine all...', 
                             size_hint = (0.2, 0.1), 
-                            pos_hint = {'center_x' : 0.5 ,'y': 0.9} )
+                            pos_hint = {'center_x' : 0.5 ,'y': 0.9},
+                            background_normal = '',
+                            background_color = (0,0,1,1)
+        )
 
         btn.bind(on_press=self.dequarPressed)
         f.add_widget(btn)
