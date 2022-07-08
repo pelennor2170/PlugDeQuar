@@ -92,13 +92,30 @@ class PlugDeQuar(App):
         f.add_widget(btn)
 
         self.RV = r
+        self.layout = f
         return f
 
     def dequarPressed(self, someArg):
-        resultList = deFlagPluginList(self.quarPlugList)
-        print(resultList)
-        self.quarPlugList = getQuarFlaggedPluginList()
-        self.RV.update(self.quarPlugList)
+        if len(self.quarPlugList) > 0:
+
+            resultList = deFlagPluginList(self.quarPlugList)
+            #print(resultList)
+            self.quarPlugList = getQuarFlaggedPluginList()
+            self.RV.update(self.quarPlugList)
+
+            if len(self.quarPlugList) == 0:
+                print('Successfully de-quarantined all files')
+                lblText = 'Successfully de-quarantined all files'
+                lbl = Label(text='Successfully de-quarantined all files!')
+
+            else :
+                lblText='Error de-quarantining one or more files'
+                print('Error de-quarantining one or more files!')
+
+            lbl = Label(text=lblText) 
+            self.layout.add_widget(lbl)
+
+
     
 
 if __name__ == "__main__":
