@@ -43,7 +43,6 @@ def getQuarFlaggedPluginList():
 
 
 def deflagOnePlugin(plugPath):
-    # seems to not need sudo?  not sure why?
 
     deflagCmd = ['/usr/bin/xattr', '-rd', QUARANTINE_KEY, str(plugPath)]
 

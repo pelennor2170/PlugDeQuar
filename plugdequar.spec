@@ -3,7 +3,7 @@
 
 block_cipher = None
 
-added_files = [ ('resources', './resources'),
+added_files = [ ('images/background.png', './images/background.png'),
                 ('*.kv', '.')]
 
 
